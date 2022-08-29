@@ -16,5 +16,11 @@
         "title": "Armadura",
         "price": 350,
         "thumbnail": "https://icons.iconarchive.com/icons/chanut/role-playing/64/Armor-icon.png"
+    },
+    {
+        "id": 4,
+        "title": "Poción",
+        "price": 50,
+        "thumbnail": "https://icons.iconarchive.com/icons/chanut/role-playing/64/Potion-icon.png"
     }
 ]
