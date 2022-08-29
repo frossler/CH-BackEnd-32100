@@ -8,8 +8,13 @@ class Contenedor {
     async save(newData) {
         try {
             const arr = await this.getAll()
-            let lastItem = arr[arr.length - 1]
-            newData.id = lastItem.id +1
+            if (arr.length == 0) {
+                newData.id = 1
+            }
+            else {
+                let lastItem = arr[arr.length - 1]
+                newData.id = lastItem.id +1
+            }
             arr.push(newData)
             await fs.promises.writeFile(this.fileName, JSON.stringify(arr))
             console.log(`Item Added ✔. ID assigned: ${newData.id}`)
