@@ -20,9 +20,9 @@ app.get('/productos', async (req, res)=> {
 })
 app.get('/productorandom', async (req, res)=> {
     const products = await container.getAll().then(res=>res)
-    const randomProd = Math.floor(Math.random() * products.lenght)
+    const randomProd = Math.floor(Math.random()*products.lenght)
     const showRandom = products[randomProd]
-    res.json(`TEST ${products}`)
+    res.json(`RANDOM PRODUCT: ${JSON.stringify(showRandom)}`) // randomProd = null // showRandom = undefined
 })
 
 app.get('/*', (req, res)=> {
