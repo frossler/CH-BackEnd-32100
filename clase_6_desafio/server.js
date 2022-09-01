@@ -18,13 +18,13 @@ app.get('/productos', async (req, res)=> {
     const products = await container.getAll().then(res=>res)
     res.json(products)
 })
-app.get('/productorandom', async (req, res)=> {
-    const products = await container.getAll().then(res=>res)
-    const randomProd = Math.floor(Math.random()*products.lenght)
-    const showRandom = products[randomProd]
-    res.send(`RANDOM PRODUCT: ${JSON.stringify(showRandom)}`) // randomProd = null // showRandom = undefined
-})
+app.get('/productorandom', async (req, res) => {
+	const products = await container.getAll();
+	const random = Math.floor(Math.random() * products.length);
+	res.json(products[random]);
+});
 
+// PAGE NOT FOUND 
 app.get('/*', (req, res)=> {
     res.send('<h1 style="color: red">PAGE NOT FOUND</h1>')
 })
