@@ -16,12 +16,12 @@ app.get('/login', (req, res)=> {
 
 app.get('/productos', async (req, res)=> {
     const products = await container.getAll().then(res=>res)
-    res.json(products)
+    res.send(products)
 })
 app.get('/productorandom', async (req, res) => {
 	const products = await container.getAll();
 	const random = Math.floor(Math.random() * products.length);
-	res.json(products[random]);
+	res.send(products[random]);
 });
 
 // PAGE NOT FOUND 
