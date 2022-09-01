@@ -3,10 +3,9 @@ const express = require('express')
 
 const PORT = process.env.PORT || 8080
 
-// EXPRESS Server
 const app = express()
 
-const container = new Contenedor('./items/items.json')
+let container = new Contenedor('./items/items.json')
 
 app.get('/',(req,res)=> {
     res.send('HOME PAGE')
@@ -19,10 +18,11 @@ app.get('/productos', async (req, res)=> {
     const products = await container.getAll().then(res=>res)
     res.json(products)
 })
-app.get('/productoRandom', async (req, res)=> {
+app.get('/productorandom', async (req, res)=> {
     const products = await container.getAll().then(res=>res)
     const randomProd = Math.floor(Math.random() * products.lenght)
-    res.send(products) // randomProd ROMPE // products[randomProd] ROMPE  NaN
+    const showRandom = products[randomProd]
+    res.json(`TEST ${products}`)
 })
 
 app.get('/*', (req, res)=> {
