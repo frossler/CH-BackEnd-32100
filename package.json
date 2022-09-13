@@ -1,24 +1,5 @@
 {
   "dependencies": {
-    "chalk": "^5.0.1",
     "express": "^4.18.1"
-  },
-  "name": "clase_6_desafio",
-  "version": "1.0.0",
-  "description": "Express avanzado",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "start-dev": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/frossler/CH-BackEnd-32100.git"
-  },
-  "author": "Fer Rossler",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/frossler/CH-BackEnd-32100/issues"
-  },
-  "homepage": "https://github.com/frossler/CH-BackEnd-32100#readme"
+  }
 }
