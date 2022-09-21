@@ -1,4 +1,5 @@
 const express = require('express');
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 
@@ -22,12 +23,18 @@ app.use((err, req, res, next) => {
 	res.status(500).json({ err, message: 'Something went wrong, sorry' });
 });
 
-const PORT = process.env.PORT || 8080;
 
-app.listen(PORT, () => {
-	console.log(`Servidor corriendo en puerto ${PORT}`);
+
+// 404 Route
+app.use('*', (req, res)=> {
+    res.status(404).send('<h1> PAGE DOES NOT EXIST </h1>');
 });
 
-app.on('error', err => {
-	console.log(`Algo salio mal: ${err}`);
+// Conexión del servidor y Manejo de errores
+const connectedSever = app.listen(PORT, ()=> {
+    console.log(`Server ON 🚀 Listening on PORT: ${PORT}`);
+});
+
+connectedSever.on("error", (error)=> {
+    console.log(`Something Went Wrong >>> ERROR: `, error.message);
 });
