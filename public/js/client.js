@@ -21,7 +21,7 @@ form.addEventListener('submit', e => {
 		titleInput.value = '';
 		priceInput.value = '';
 		thumbnailInput.value = '';
-	}
+	};
 });
 
 socket.on('update-products', product => {
@@ -53,14 +53,14 @@ messageForm.addEventListener('submit', e => {
 
 		error.innerText = 'Please enter an email';
 		errors.appendChild(error);
-	}
+	};
 
 	if (!messageInput.value) {
 		const error = document.createElement('p');
 
 		error.innerText = 'Please enter a message';
 		errors.appendChild(error);
-	}
+	};
 
 	if (messageInput.value && emailInput.value) {
 		const message = {
@@ -70,7 +70,7 @@ messageForm.addEventListener('submit', e => {
 		socket.emit('message', message);
 		emailInput.value = '';
 		messageInput.value = '';
-	}
+	};
 });
 
 socket.on('message', message => {
