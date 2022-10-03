@@ -1,0 +1,20 @@
+[
+  {
+    "email": "fer.rossler@coder.com",
+    "message": "Hola! ",
+    "date": "3/10/2022 10:14:14",
+    "id": 1
+  },
+  {
+    "email": "fer.coder@rossler.com",
+    "message": "Hola, quisiera comprar una Armadura",
+    "date": "3/10/2022 10:14:37",
+    "id": 2
+  },
+  {
+    "email": "mercado.negro@deitems.com",
+    "message": "Vean la lista de disponibles. ",
+    "date": "3/10/2022 10:47:02",
+    "id": 3
+  }
+]
