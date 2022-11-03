@@ -1,17 +1,17 @@
 //Listar todos los documentos:
 
 ecommerce> db.mensajes.find().toArray()
-[{_id: ObjectId("635daae3e91d1bb1caf908b5"),email: 'frossl@coder.com',text: 'HyperText Mackup Language',date: ISODate("2022-10-29T22:36:19.045Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908b6"),email: 'frossl@coder.com',text: 'Cascading Style Sheets',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908b7"),email: 'frossl@coder.com',text: 'JavaScript',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908b8"),email: 'frossl@coder.com',text: 'NodeJS',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908b9"),email: 'frossl@coder.com',text: 'MySQL',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908ba"),email: 'frossl@coder.com',text: 'MongoDB',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908bb"),email: 'frossl@coder.com',text: 'React',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908bc"),email: 'frossl@coder.com',text: 'Firebase',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908bd"),email: 'frossl@coder.com',text: 'CRUD',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635daae3e91d1bb1caf908be"),email: 'frossl@coder.com',text: 'GIT',date: ISODate("2022-10-29T22:36:19.046Z")},
-{_id: ObjectId("635dab1de91d1bb1caf908bf"),email: 'frossl@coder.com',text: 'GITHUB',date: ISODate("2022-10-29T22:37:17.189Z")}]
+[{_id: ObjectId("635daae3e91d1bb1caf908b5"),email: 'frossl@coder.com',text: 'HyperText Mackup Language',date: ISODate("2022-10-31T22:36:19.045Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908b6"),email: 'frossl@coder.com',text: 'Cascading Style Sheets',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908b7"),email: 'frossl@coder.com',text: 'JavaScript',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908b8"),email: 'frossl@coder.com',text: 'NodeJS',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908b9"),email: 'frossl@coder.com',text: 'MySQL',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908ba"),email: 'frossl@coder.com',text: 'MongoDB',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908bb"),email: 'frossl@coder.com',text: 'React',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908bc"),email: 'frossl@coder.com',text: 'Firebase',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908bd"),email: 'frossl@coder.com',text: 'CRUD',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635daae3e91d1bb1caf908be"),email: 'frossl@coder.com',text: 'GIT',date: ISODate("2022-10-31T22:36:19.046Z")},
+{_id: ObjectId("635dab1de91d1bb1caf908bf"),email: 'frossl@coder.com',text: 'GITHUB',date: ISODate("2022-10-31T22:37:17.189Z")}]
 
 //Mostrar la cantidad de documentos almacenados:
 ecommerce> db.mensajes.countDocuments()
