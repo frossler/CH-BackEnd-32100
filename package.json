@@ -1,0 +1,41 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000B\u0000a\u0000c\u0000k\u0000e\u0000n\u0000d\u0000\r\u0000 \u0000",
+  "main": "server.js",
+  "dependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6",
+    "faker": "^5.4.0",
+    "firebase-admin": "^11.0.1",
+    "knex": "^2.2.0",
+    "mongoose": "^6.5.2",
+    "mysql": "^2.18.1",
+    "normalizr": "^3.6.2",
+    "pug": "^3.0.2",
+    "socket.io": "^4.5.1",
+    "sqlite3": "^5.0.11",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "migrations": "node migracion.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frossler#readme"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frossler#readme"
+  },
+  "homepage": "https://github.com/frossler#readme"
+}
