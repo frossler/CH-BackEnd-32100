@@ -8,7 +8,28 @@ const { Server: Socket } = require("socket.io");
 const contenedorDB = require("../contenedores/contenedorDB.js");
 const { configMySQL, configSQLite } = require("./config.js");
 
+// Session
+const session = require("express-session");
+
+const mongoStore = require("connect-mongo");
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
 const app = express();
+app.use(
+  session({
+    store: mongoStore.create({
+      mongoUrl: "mongodb://localhost/sesiones",
+      mongoOptions: advancedOptions,
+    }),
+    secret: "silencio",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 60000,
+    },
+  })
+);
+
 const httpServer = new HttpServer(app);
 const io = new Socket(httpServer);
 
@@ -68,6 +89,32 @@ app.get("/productos-test", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+app.get("/", (req, res) => {
+  res.send("Servidor express ok!");
+});
+
+app.post("/login", (req, res) => {
+  let { nombre } = req.body;
+  req.session.nombre = nombre;
+  res.redirect("./main");
+});
+
+app.get("/main", (req, res) => {
+  if (req.session.nombre) {
+    res.send(`Bienvenido ${nombre}`);
+  } else {
+    res.send("No estas logueado");
+    res.redirect("/login");
+  }
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (!err) res.send("Logout ok!");
+    else res.send({ status: "Logout ERROR", body: err });
+  });
+});
 
 const PORT = process.env.PORT || 8080;
 
