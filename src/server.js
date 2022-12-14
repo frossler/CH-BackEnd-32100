@@ -5,6 +5,7 @@ require("dotenv").config();
 const { fork } = require("child_process");
 const path = require("path");
 const args = process.argv;
+const cluster = require("cluster");
 
 const { Server: HttpServer } = require("http");
 const { Server: Socket } = require("socket.io");
@@ -256,29 +257,57 @@ app.get("/info-procesos", (req, res) => {
   res.send(info);
 });
 
-// Servidor
+// Fork y Cluster
 
-const PORT = {
-  alias: {
-    p: "puerto",
-  },
-  default: {
-    puerto: 8080,
-  },
-};
-
-const commandLineArgs = process.argv.slice(2);
-
-const { puerto, _ } = parseArgs(commandLineArgs, PORT);
-
-console.log({ puerto, otros: _ });
-
-const connectedServer = httpServer.listen(PORT, () => {
-  console.log(
-    `Servidor Http escuchando en el puerto ${connectedServer.address().port}`
+const PORT = parseInt(process.argv[2]) || 8080;
+console.log("PUERTO= " + PORT);
+app.get("/", (req, res) => {
+  res.send(
+    `Servidor express en ${PORT} - <b>PID ${
+      process.pid
+    }</b> - ${new Date().toLocaleString()}`
   );
 });
 
-connectedServer.on("error", (error) =>
-  console.log(`Error en servidor ${error}`)
-);
+app.listen(PORT, (err) => {
+  if (!err)
+    console.log(`Servidor express en ${PORT} - PID WORKER ${process.pid}`);
+});
+
+const numCPUs = require("os").cpus().length;
+
+if (cluster.isMaster) {
+  console.log(numCPUs);
+  console.log(`PID MASTER ${process.pid}`);
+
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on("exit", (worker) => {
+    console.log(
+      "worker",
+      worker.process.pid,
+      "died",
+      new Date().toLocaleString()
+    );
+    cluster.fork();
+  });
+} else {
+  const PORT = parseInt(process.argv[2]) || 8080;
+  app.get("/", (req, res) => {
+    res.send(
+      `Servidor express en ${PORT} - <b>PID ${
+        process.pid
+      }</b> - ${new Date().toLocaleString()}`
+    );
+  });
+
+  app.get("/info", (req, res) => {
+    res.send(numCPUs);
+  });
+
+  app.listen(PORT, (err) => {
+    if (!err)
+      console.log(`Servidor express en ${PORT} - PID WORKER ${process.pid}`);
+  });
+}
