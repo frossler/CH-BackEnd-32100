@@ -1,6 +1,10 @@
 const express = require("express");
 const faker = require("faker");
 faker.locale = "es";
+require("dotenv").config();
+const { fork } = require("child_process");
+const path = require("path");
+const args = process.argv;
 
 const { Server: HttpServer } = require("http");
 const { Server: Socket } = require("socket.io");
@@ -16,7 +20,7 @@ const { Strategy: LocalStrategy } = require("passport-local");
 const mongoStore = require("connect-mongo");
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
-// --- egister & Login ----- //
+// --- Register & Login ----- //
 
 const usuarios = [];
 
@@ -81,7 +85,7 @@ app.use(
       mongoUrl: "mongodb://localhost/sesiones",
       mongoOptions: advancedOptions,
     }),
-    secret: "silencio",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -232,7 +236,42 @@ app.get("/logout", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 8080;
+// Process
+
+const nombrePlataforma = process.platform;
+const versionNode = process.version;
+const memoriaReservada = process.memoryUsage();
+const pid = process.pid;
+const carpetaProyecto = process.cwd();
+
+const info = {
+  nombrePlataforma,
+  versionNode,
+  memoriaReservada,
+  pid,
+  carpetaProyecto,
+};
+
+app.get("/info-procesos", (req, res) => {
+  res.send(info);
+});
+
+// Servidor
+
+const PORT = {
+  alias: {
+    p: "puerto",
+  },
+  default: {
+    puerto: 8080,
+  },
+};
+
+const commandLineArgs = process.argv.slice(2);
+
+const { puerto, _ } = parseArgs(commandLineArgs, PORT);
+
+console.log({ puerto, otros: _ });
 
 const connectedServer = httpServer.listen(PORT, () => {
   console.log(
