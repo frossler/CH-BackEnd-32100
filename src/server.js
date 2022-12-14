@@ -10,9 +10,69 @@ const { configMySQL, configSQLite } = require("./config.js");
 
 // Session
 const session = require("express-session");
+const passport = require("passport");
+const { Strategy: LocalStrategy } = require("passport-local");
 
 const mongoStore = require("connect-mongo");
 const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+
+// --- egister & Login ----- //
+
+const usuarios = [];
+
+passport.use(
+  "register",
+  new LocalStrategy(
+    {
+      passReqToCallback: true,
+    },
+    (req, email, password, done) => {
+      const { acceso } = req.body;
+
+      const usuario = usuarios.find((usuario) => usuario.email == email);
+      if (usuario) {
+        return done("Usuario ya registrado");
+      }
+
+      const user = {
+        email,
+        password,
+        acceso,
+      };
+      usuarios.push(user);
+
+      return done(null, user);
+    }
+  )
+);
+
+passport.use(
+  "login",
+  new LocalStrategy((email, password, done) => {
+    const user = usuarios.find((usuario) => usuario.email == email);
+
+    if (!user) {
+      return done(null, false);
+    }
+
+    if (user.password != password) {
+      return done(null, false);
+    }
+
+    return done(null, user);
+  })
+);
+
+passport.serializeUser(function (user, done) {
+  done(null, user.username);
+});
+
+passport.deserializeUser(function (username, done) {
+  const usuario = usuarios.find((usuario) => usuario.email == email);
+  done(null, usuario);
+});
+
+// ------------- //
 
 const app = express();
 app.use(
@@ -35,6 +95,9 @@ const io = new Socket(httpServer);
 
 const productosApi = new contenedorDB(configMySQL.config, configMySQL.tabla);
 const mensajesApi = new contenedorDB(configSQLite.config, configSQLite.tabla);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 io.on("connection", async (socket) => {
   console.log("nuevo cliente conectado");
@@ -89,6 +152,59 @@ app.get("/productos-test", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
+
+function isAuth(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+}
+
+// Register & Login
+
+app.get("/register", (req, res) => {
+  res.redirect("/public/index.html");
+});
+
+app.post(
+  "/register",
+  passport.authenticate("register", {
+    failureRedirect: "/failregister",
+    successRedirect: "/",
+  })
+);
+
+app.get("/failregister", (req, res) => {
+  res.redirect("/public/index.html");
+});
+
+app.get("/login", (req, res) => {
+  res.redirect("/public/index.html");
+});
+
+app.post(
+  "/login",
+  passport.authenticate("login", {
+    failureRedirect: "/faillogin",
+    successRedirect: "/datos",
+  })
+);
+
+app.get("/faillogin", (req, res) => {
+  res.redirect("/public/index.html");
+});
+
+// Logout
+
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
+app.get("/", isAuth, (req, res) => {
+  res.redirect("/public/index.html");
+});
 
 app.get("/", (req, res) => {
   res.send("Servidor express ok!");

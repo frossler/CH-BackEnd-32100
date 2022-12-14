@@ -16,10 +16,13 @@
     "express-session": "^1.17.3",
     "faker": "^5.4.0",
     "firebase-admin": "^11.0.1",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^2.2.0",
     "mongoose": "^6.5.2",
     "mysql": "^2.18.1",
     "normalizr": "^3.6.2",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
     "pug": "^3.0.2",
     "redis": "^4.3.0",
     "session-file-store": "^1.5.0",
@@ -35,13 +38,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Daniheto/Backend.git"
+    "url": "git+https://github.com/frossler/Backend.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Daniheto/Backend/issues"
+    "url": "https://github.com/frossler/Backend/issues"
   },
-  "homepage": "https://github.com/Daniheto/Backend#readme"
+  "homepage": "https://github.com/frossler/Backend#readme"
 }
